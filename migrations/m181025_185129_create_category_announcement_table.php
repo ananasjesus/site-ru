@@ -14,6 +14,8 @@ class m181025_185129_create_category_announcement_table extends Migration
     {
         $this->createTable('category_announcement', [
             'id' => $this->primaryKey(),
+            'category_id' => $this->integer()->notNull(),
+            'announcement_id' => $this->integer()->notNull(),
         ]);
     }
 

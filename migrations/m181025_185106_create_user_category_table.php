@@ -14,6 +14,8 @@ class m181025_185106_create_user_category_table extends Migration
     {
         $this->createTable('user_category', [
             'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),
+            'category_id' => $this->integer()->notNull(),
         ]);
     }
 
