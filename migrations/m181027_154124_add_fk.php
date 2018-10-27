@@ -28,6 +28,7 @@ class m181027_154124_add_fk extends Migration
             'CASCADE'
         );
 
+        //add foreign key for table 'category'
         $this->createIndex(
             'idx_user_category_category_id',
             'user_category',
@@ -37,6 +38,38 @@ class m181027_154124_add_fk extends Migration
         $this->addForeignKey(
             'fk_user_category_category_id',
             'user_category',
+            'category_id',
+            'category',
+            'id',
+            'CASCADE'
+        );
+
+        // add foreign key for table 'announcement'
+        $this->createIndex(
+            'idx_category_announcement_announcement_id',
+            'category_announcement',
+            'announcement_id'
+        );
+
+        $this->addForeignKey(
+            'fk_category_announcement_announcement_id',
+            'category_announcement',
+            'announcement_id',
+            'announcement',
+            'id',
+            'CASCADE'
+        );
+
+        //add foreign key for table 'category'
+        $this->createIndex(
+            'idx_category_announcement_category_id',
+            'category_announcement',
+            'category_id'
+        );
+
+        $this->addForeignKey(
+            'fk_category_announcement_category_id',
+            'category_announcement',
             'category_id',
             'category',
             'id',
