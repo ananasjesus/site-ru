@@ -21,13 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content') ?>
 
-    <?= $form->field($model, 'image') ?>
+    <?= $form->field($model, 'expired') ?>
 
     <?= $form->field($model, 'viewed') ?>
 
-    <?php // echo $form->field($model, 'user_id') ?>
+    <?= $form->field($model, 'user_id') ?>
 
-    <?php // echo $form->field($model, 'expired') ?>
+    <?= $form->field($model, 'image') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
