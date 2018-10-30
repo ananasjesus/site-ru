@@ -33,9 +33,12 @@ class Announcement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['title', 'content'], 'required'],
             [['content'], 'string'],
             [['viewed', 'user_id'], 'integer'],
-            [['expired'], 'safe'],
+            [['viewed'], 'default', 'value' => 0],
+            [['expired'], 'date', 'format' => 'php:Y-m-d'],
+            [['expired'], 'default', 'value' => date('Y-m-d', time() + 30 * 24 * 60 * 60)], //+30 days
             [['title', 'image'], 'string', 'max' => 255],
         ];
     }
