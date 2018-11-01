@@ -63,7 +63,7 @@ class Announcement extends \yii\db\ActiveRecord
    public function saveImage($filename)
    {
        $this->image = $filename;
-       $this->save(false);
+       return $this->save(false);
    }
 
 }

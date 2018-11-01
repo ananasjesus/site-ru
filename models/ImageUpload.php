@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 
@@ -12,14 +11,20 @@ class ImageUpload extends Model {
 
     public $image;
 
+    public function rules()
+    {
+        return [
+            ['image', 'required'],
+            ['image', 'file', 'extensions' => 'jpg,jpeg,png,gif']
+        ];
+    }
+
     public function uploadFile(UploadedFile $file)
     {
         $this->image = $file;
 
-        $fullPath = Yii::getAlias('@web') . self::IMAGE_PATH;
-
         do {
-            $filename = $fullPath . uniqid($file->baseName, true) . '.' . $file->extension;
+            $filename = self::IMAGE_PATH . uniqid($file->baseName, true) . '.' . $file->extension;
         } while(file_exists($filename));
 
         $file->saveAs($filename);
