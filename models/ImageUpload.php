@@ -19,7 +19,7 @@ class ImageUpload extends Model {
         $fullPath = Yii::getAlias('@web') . self::IMAGE_PATH;
 
         do {
-            $filename = $fullPath . uniqid($file->name, true) . '.' . $file->extension;
+            $filename = $fullPath . uniqid($file->baseName, true) . '.' . $file->extension;
         } while(file_exists($filename));
 
         $file->saveAs($filename);
