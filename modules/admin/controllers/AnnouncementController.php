@@ -125,6 +125,7 @@ class AnnouncementController extends Controller
                 is_file($currentImage) ? unlink($currentImage) : null;
             }
 
+            return $this->redirect(['view', 'id' => $announcement->id]);
         }
 
         return $this->render('image', ['model' => $model]);
