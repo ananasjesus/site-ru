@@ -23,12 +23,15 @@ class ImageUpload extends Model {
     {
         $this->image = $file;
 
-        do {
-            $filename = self::IMAGE_PATH . uniqid($file->baseName, true) . '.' . $file->extension;
-        } while(file_exists($filename));
+        if($this->validate()) {
+            do {
+                $filename = self::IMAGE_PATH . uniqid($file->baseName, true) . '.' . $file->extension;
+            } while (file_exists($filename));
 
-        $file->saveAs($filename);
-        return $filename;
+            $file->saveAs($filename);
+            return $filename;
+        }
+        
     }
 
 }
