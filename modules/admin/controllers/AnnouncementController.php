@@ -2,12 +2,14 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\ImageUpload;
 use Yii;
 use app\models\Announcement;
 use app\models\AnnouncementSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * AnnouncementController implements the CRUD actions for Announcement model.
@@ -109,6 +111,20 @@ class AnnouncementController extends Controller
         return $this->redirect(['index']);
     }
 
+
+    public function actionSetImage($id)
+    {
+        $model = new ImageUpload();
+
+        if (Yii::$app->request->isPost) {
+            $file = UploadedFile::getInstance($model, 'image');
+
+            var_dump($file);die;
+        }
+
+        return $this->render('image', ['model' => $model]);
+    }
+
     /**
      * Finds the Announcement model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -124,4 +140,6 @@ class AnnouncementController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }
