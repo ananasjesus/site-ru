@@ -66,4 +66,20 @@ class Announcement extends \yii\db\ActiveRecord
        return $this->save(false);
    }
 
+   public function getImage()
+   {
+       if(is_file($this->image))
+           return $this->image;
+       else
+           return 'no_image.png';
+   }
+
+   public function beforeDelete()
+   {
+       if(is_file($this->image))
+           unlink($this->image);
+
+       return parent::beforeDelete();
+   }
+
 }
