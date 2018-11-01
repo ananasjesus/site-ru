@@ -117,9 +117,10 @@ class AnnouncementController extends Controller
         $model = new ImageUpload();
 
         if (Yii::$app->request->isPost) {
+            $announcement = $this->findModel($id);
             $file = UploadedFile::getInstance($model, 'image');
 
-            var_dump($file);die;
+            $announcement->saveImage($model->uploadFile($file));
         }
 
         return $this->render('image', ['model' => $model]);

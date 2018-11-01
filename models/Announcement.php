@@ -59,11 +59,11 @@ class Announcement extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategoryAnnouncements()
-    {
-        return $this->hasMany(CategoryAnnouncement::className(), ['announcement_id' => 'id']);
-    }
+
+   public function saveImage($filename)
+   {
+       $this->image = $filename;
+       $this->save(false);
+   }
+
 }
