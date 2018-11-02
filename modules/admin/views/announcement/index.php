@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\AnnouncementSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Announcements';
+$this->title = 'Объявления';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="announcement-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Announcement', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать объявление', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -42,4 +42,3 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 </div>
-//test

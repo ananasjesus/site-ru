@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Announcement */
 
-$this->title = 'Create Announcement';
-$this->params['breadcrumbs'][] = ['label' => 'Announcements', 'url' => ['index']];
+$this->title = 'Создать объявление';
+$this->params['breadcrumbs'][] = ['label' => 'Объявления', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="announcement-create">

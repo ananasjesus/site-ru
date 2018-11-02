@@ -12,10 +12,10 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'image')->fileInput(['maxLength' => true]) ?>
+    <?= $form->field($model, 'image')->fileInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Upload', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
