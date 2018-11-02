@@ -82,4 +82,10 @@ class Announcement extends \yii\db\ActiveRecord
        return parent::beforeDelete();
    }
 
+   public function getCategory()
+   {
+       return $this->hasMany(Category::className(), ['id' => 'category_id'])
+           ->viaTable('category_announcement', ['announcement_id' => 'id']);
+   }
+
 }

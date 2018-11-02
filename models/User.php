@@ -59,4 +59,10 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(UserCategory::className(), ['user_id' => 'id']);
     }
+
+    public function getCategory()
+    {
+        return $this->hasMany(Category::className(), ['id' => 'category_id'])
+            ->viaTable('user_category', ['user_id' => 'id']);
+    }
 }

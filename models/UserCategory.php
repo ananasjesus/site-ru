@@ -5,9 +5,8 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "user_category".
+ * This is the model class for table "user_category" (banned category for user).
  *
- * @property int $id
  * @property int $user_id
  * @property int $category_id
  *
@@ -43,7 +42,6 @@ class UserCategory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'user_id' => 'User ID',
             'category_id' => 'Category ID',
         ];

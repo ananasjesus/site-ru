@@ -7,7 +7,6 @@ use Yii;
 /**
  * This is the model class for table "category_announcement".
  *
- * @property int $id
  * @property int $category_id
  * @property int $announcement_id
  *
@@ -43,7 +42,6 @@ class CategoryAnnouncement extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'category_id' => 'Category ID',
             'announcement_id' => 'Announcement ID',
         ];
