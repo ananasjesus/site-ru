@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "announcement".
@@ -86,6 +87,23 @@ class Announcement extends \yii\db\ActiveRecord
    {
        return $this->hasMany(Category::className(), ['id' => 'category_id'])
            ->viaTable('category_announcement', ['announcement_id' => 'id']);
+   }
+
+   public function getSelectedCategory()
+   {
+       return ArrayHelper::getColumn($this->getCategory()->select('id')->asArray()->all(), 'id');
+   }
+
+   public function saveCategory($category)
+   {
+       if (is_array($category)) {
+
+           CategoryAnnouncement::deleteAll(['announcement_id' => $this->id]);
+
+           foreach ($category as $id) {
+               $this->link('category', Category::findOne($id));
+           }
+       }
    }
 
 }

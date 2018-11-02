@@ -2,10 +2,12 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Category;
 use app\models\ImageUpload;
 use Yii;
 use app\models\Announcement;
 use app\models\AnnouncementSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -129,6 +131,25 @@ class AnnouncementController extends Controller
         }
 
         return $this->render('image', ['model' => $model]);
+    }
+
+    public function actionSetCategory($id)
+    {
+        $announcement = $this->findModel($id);
+        $selectedCategory = $announcement->getSelectedCategory();
+        $category = ArrayHelper::map(Category::find()->all(), 'id', 'title');
+
+        if(Yii::$app->request->isPost)
+        {
+            $category = Yii::$app->request->post('category');
+            $announcement->saveCategory($category);
+            return $this->redirect(['view', 'id' => $id]);
+        }
+
+        return $this->render('category', [
+            'selectedCategory' => $selectedCategory,
+            'category' => $category
+        ]);
     }
 
     /**
