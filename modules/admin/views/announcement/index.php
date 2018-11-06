@@ -29,6 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'expired',
             'viewed',
+            [
+                'label' => 'Категории',
+                'value' => function($data) {
+                    $result = [];
+                    foreach ($data->category as $category)
+                        $result[] = $category->title;
+                    return implode(', ', $result);
+                }
+            ],
             'user_id',
             [
                 'format' => 'html',
