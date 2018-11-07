@@ -25,4 +25,12 @@ class DefaultController extends Controller
 
         return $this->render('popular', ['dataProvider' => $dataProvider]);
     }
+
+    public function actionPopularUsers()
+    {
+        $dataProvider = Announcement::getPopularUsers();
+        //dump($dataProvider);die;
+
+        return $this->render('users', ['dataProvider' => $dataProvider]);
+    }
 }

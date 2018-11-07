@@ -21,7 +21,7 @@ use yii\helpers\ArrayHelper;
  */
 class Announcement extends \yii\db\ActiveRecord
 {
-    public $cnt;
+    public $cnt, $name;
     /**
      * {@inheritdoc}
      */
@@ -61,7 +61,8 @@ class Announcement extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'expired' => 'Expired',
             'created' => 'Created',
-            'cnt' => 'Count'
+            'cnt' => 'Count',
+            'name' => 'User name'
         ];
     }
 
@@ -124,5 +125,19 @@ class Announcement extends \yii\db\ActiveRecord
 
        return $provider;
    }
+
+    public static function getPopularUsers()
+    {
+        $query = self::find()->join('LEFT JOIN', 'user', 'announcement.user_id = user.id')->select(['announcement.user_id AS user_id', 'user.name AS name', 'COUNT(*) AS cnt'])->groupBy('announcement.user_id')->distinct()->orderBy('cnt DESC');
+
+        $provider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $provider;
+    }
 
 }
