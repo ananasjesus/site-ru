@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 use app\models\Announcement;
+use app\models\Category;
 use yii\web\Controller;
 
 /**
@@ -32,5 +33,13 @@ class DefaultController extends Controller
         //dump($dataProvider);die;
 
         return $this->render('users', ['dataProvider' => $dataProvider]);
+    }
+
+    public function actionPopularCategory()
+    {
+        $dataProvider = Category::getPopularCategory();
+        //dump($dataProvider);die;
+
+        return $this->render('category', ['dataProvider' => $dataProvider]);
     }
 }

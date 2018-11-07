@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "category".
@@ -15,6 +16,7 @@ use Yii;
  */
 class Category extends \yii\db\ActiveRecord
 {
+    public $cnt;
     /**
      * {@inheritdoc}
      */
@@ -41,6 +43,7 @@ class Category extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Title',
+            'cnt' => 'Count'
         ];
     }
 
@@ -70,5 +73,19 @@ class Category extends \yii\db\ActiveRecord
     {
         return $this->hasMany(User::className(), ['id' => 'user_id'])
             ->viaTable('user_category', ['category_id' => 'id']);
+    }
+
+    public static function getPopularCategory()
+    {
+        $query = self::find()->join('RIGHT JOIN', 'category_announcement', 'category_announcement.category_id = category.id')->select(['category.id AS id', 'category.title AS title', 'COUNT(*) AS cnt'])->groupBy('category.id')->distinct()->orderBy('cnt DESC');
+
+        $provider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $provider;
     }
 }
