@@ -63,7 +63,7 @@ class Category extends \yii\db\ActiveRecord
     public function getAnnouncement()
     {
         return $this->hasMany(Announcement::className(), ['id' => 'announcement_id'])
-            ->viaTable('category_announcement', ['announcement_id' => 'id']);
+            ->viaTable('category_announcement', ['category_id' => 'id']);
     }
 
     public function getUser()
