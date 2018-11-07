@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'expired',
             'viewed',
             [
-                'label' => 'Категории',
+                'label' => 'Category',
                 'value' => function($data) {
                     $result = ArrayHelper::getColumn($data->getCategory()->select('title')->asArray()->all(), 'title');
                     return implode(', ', $result);
