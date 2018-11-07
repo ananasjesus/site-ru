@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -32,9 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Категории',
                 'value' => function($data) {
-                    $result = [];
-                    foreach ($data->category as $category)
-                        $result[] = $category->title;
+                    $result = ArrayHelper::getColumn($data->getCategory()->select('title')->asArray()->all(), 'title');
                     return implode(', ', $result);
                 }
             ],
