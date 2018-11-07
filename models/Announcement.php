@@ -58,6 +58,7 @@ class Announcement extends \yii\db\ActiveRecord
             'viewed' => 'Viewed',
             'user_id' => 'User ID',
             'expired' => 'Expired',
+            'created' => 'Created',
         ];
     }
 

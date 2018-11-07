@@ -1,15 +1,16 @@
 <?php
+
+use yii\helpers\Html;
+
 $this->title = 'Администратор';
 ?>
 <div class="admin-default-index">
-    <h1><?= $this->context->action->uniqueId ?></h1>
+    <h1>Панель администратора</h1>
+
     <p>
-        This is the view content for action "<?= $this->context->action->id ?>".
-        The action belongs to the controller "<?= get_class($this->context) ?>"
-        in the "<?= $this->context->module->id ?>" module.
+        <?= Html::a('Популярные дни', ['announcement/popular-days'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Активные пользователи', ['user/popular-users'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Популярные категории', ['category/popular-category'], ['class' => 'btn btn-success']) ?>
     </p>
-    <p>
-        You may customize this page by editing the following file:<br>
-        <code><?= __FILE__ ?></code>
-    </p>
+
 </div>

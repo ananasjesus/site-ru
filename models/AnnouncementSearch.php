@@ -18,8 +18,8 @@ class AnnouncementSearch extends Announcement
     public function rules()
     {
         return [
+            [['title', 'content', 'expired', 'created'], 'string'],
             [['id', 'viewed', 'user_id'], 'integer'],
-            [['title', 'content', 'image', 'expired'], 'safe'],
         ];
     }
 
@@ -53,7 +53,7 @@ class AnnouncementSearch extends Announcement
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
-            $query->where('0=1');
+            //$query->where('0=1');
             return $dataProvider;
         }
 
@@ -62,12 +62,12 @@ class AnnouncementSearch extends Announcement
             'id' => $this->id,
             'viewed' => $this->viewed,
             'user_id' => $this->user_id,
-            'expired' => $this->expired,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'image', $this->image]);
+            ->andFilterWhere(['like', 'expired', $this->expired])
+            ->andFilterWhere(['like', 'created', $this->created]);
 
         return $dataProvider;
     }
