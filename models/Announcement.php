@@ -38,8 +38,9 @@ class Announcement extends \yii\db\ActiveRecord
             [['content'], 'string'],
             [['viewed', 'user_id'], 'integer'],
             [['viewed'], 'default', 'value' => 0],
-            [['expired'], 'date', 'format' => 'php:Y-m-d'],
+            [['expired', 'created'], 'date', 'format' => 'php:Y-m-d'],
             [['expired'], 'default', 'value' => date('Y-m-d', time() + 30 * 24 * 60 * 60)], //+30 days
+            [['created'], 'default', 'value' => date('Y-m-d', time())],
             [['title', 'image'], 'string', 'max' => 255],
         ];
     }
