@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -20,6 +21,7 @@ use yii\helpers\ArrayHelper;
  */
 class Announcement extends \yii\db\ActiveRecord
 {
+    public $cnt;
     /**
      * {@inheritdoc}
      */
@@ -36,7 +38,7 @@ class Announcement extends \yii\db\ActiveRecord
         return [
             [['title', 'content'], 'required'],
             [['content'], 'string'],
-            [['viewed', 'user_id'], 'integer'],
+            [['viewed', 'user_id', 'cnt'], 'integer'],
             [['viewed'], 'default', 'value' => 0],
             [['expired', 'created'], 'date', 'format' => 'php:Y-m-d'],
             [['expired'], 'default', 'value' => date('Y-m-d', time() + 30 * 24 * 60 * 60)], //+30 days
@@ -59,6 +61,7 @@ class Announcement extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'expired' => 'Expired',
             'created' => 'Created',
+            'cnt' => 'Count'
         ];
     }
 
@@ -106,6 +109,20 @@ class Announcement extends \yii\db\ActiveRecord
                $this->link('category', Category::findOne($id));
            }
        }
+   }
+
+   public static function getPopularDays()
+   {
+       $query = self::find()->select(['created', 'COUNT(*) AS cnt'])->groupBy('created')->distinct()->orderBy('cnt DESC');
+
+       $provider = new ActiveDataProvider([
+           'query' => $query,
+           'pagination' => [
+               'pageSize' => 10,
+           ],
+       ]);
+
+       return $provider;
    }
 
 }

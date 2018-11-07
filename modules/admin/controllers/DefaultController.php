@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Announcement;
 use yii\web\Controller;
 
 /**
@@ -16,5 +17,12 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionPopularDays()
+    {
+        $dataProvider = Announcement::getPopularDays();
+
+        return $this->render('popular', ['dataProvider' => $dataProvider]);
     }
 }
