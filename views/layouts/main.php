@@ -23,7 +23,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body style="background-color: #a4bfd9">
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -36,7 +36,9 @@ AppAsset::register($this);
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => [
+            'class' => 'navbar-nav navbar-right',
+        ],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],

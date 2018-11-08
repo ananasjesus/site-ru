@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Html;
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
@@ -7,11 +7,11 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>Поздравляем!</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Вы зашли на лучший сайт с объявлениями. Здесь вас ждёт много интересного!</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p><?= Html::a('Создать объявление', ['announcement/create'], ['class' => 'btn btn-lg btn-success']) ?></p>
     </div>
 
     <div class="body-content">
