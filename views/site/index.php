@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 /* @var $this yii\web\View */
-
+/* @var $announcements app\models\Announcement[] */
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
@@ -17,36 +17,18 @@ $this->title = 'My Yii Application';
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+            <?php foreach($announcements as $announcement):?>
+                <div class="col-md-4">
+                    <div class="card" style="width: 28rem; border:1px solid #b4b2b3; border-radius: 8px; background-color: #5b92cb">
+                        <img class="card-img-top" style="width: 100%; height: 20rem; object-fit: cover; border-radius: inherit;" src="<?= $announcement->getImage();?>" alt="">
+                        <div class="card-body" style="margin: 1rem;">
+                            <h5 class="card-title"><?= strlen($announcement->title) < 30 ? $announcement->title : mb_substr($announcement->title, 0, 30) . '...' ?></h5>
+                            <p class="card-text" style="min-height: 5rem;"><?= strlen($announcement->content) < 100 ? $announcement->content : mb_substr($announcement->content, 0, 30) . '...'?></p>
+                            <a href="#" class="btn btn-primary card-text-bottom">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
 
     </div>

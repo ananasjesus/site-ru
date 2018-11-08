@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Announcement;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,7 +62,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $announcements = Announcement::find()->select(['id', 'viewed', 'title', 'content', 'image'])->orderBy(['viewed' => SORT_DESC, 'id' => SORT_DESC])->limit(3)->all();
+        return $this->render('index', [
+            'announcements' => $announcements,
+        ]);
     }
 
     /**
