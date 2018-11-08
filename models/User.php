@@ -15,6 +15,7 @@ use Yii;
  * @property string $photo
  *
  * @property UserCategory[] $userCategories
+ * @property Category[] $category
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -33,6 +34,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['isAdmin'], 'integer'],
+            [['isAdmin'], 'default', 'value' => 0],
             [['name', 'email', 'password', 'photo'], 'string', 'max' => 255],
         ];
     }
