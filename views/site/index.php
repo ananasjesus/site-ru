@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $announcements app\models\Announcement[] */
-$this->title = 'My Yii Application';
+$this->title = 'Доска объявлений';
 ?>
 <div class="site-index">
 
