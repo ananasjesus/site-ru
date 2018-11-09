@@ -64,6 +64,29 @@ $config = [
     ],
 
     'params' => $params,
+
+    //Global access control (behaviors)
+
+    'as access' => [
+        'class' => \yii\filters\AccessControl::className(),
+        'rules' => [
+
+            [
+                'allow' => true,
+                'controllers' => ['admin/*'],
+                'matchCallback' => function($rule, $action){
+                    if(!Yii::$app->getUser()->isGuest && Yii::$app->user->identity->isAdmin === 1)
+                        return true;
+                }
+            ],
+            [
+                'controllers' => ['site'],
+                'allow' => true,
+                //'roles' => ['?'],
+            ],
+
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {
