@@ -36,7 +36,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             [['isAdmin'], 'integer'],
             [['isAdmin'], 'default', 'value' => 0],
-            [['name', 'email', 'password', 'photo'], 'string', 'max' => 255],
+            [['name', 'password', 'photo'], 'string', 'max' => 255],
+            ['email', 'email'],
         ];
     }
 
@@ -69,7 +70,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             ->viaTable('user_category', ['user_id' => 'id']);
     }
 
-    /* IdentityInterface implementation */
+    // IdentityInterface implementation
     public static function findIdentity($id)
     {
         return static::findOne($id);
@@ -94,5 +95,40 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() === $authKey;
+    }
+    //end of implementation
+
+    //find by email
+    public static function findByEmail($email)
+    {
+        return static::findOne([
+            'email' => $email
+        ]);
+    }
+
+    /**
+     * Генерирует хеш из введенного пароля и присваивает (при записи) полученное значение полю password_hash таблицы user для
+     * нового пользователя.
+     * Вызываеться из модели RegForm.
+     */
+    public function setPassword($password)
+    {
+        $this->password = Yii::$app->security->generatePasswordHash($password);
+    }
+    /**
+     * Генерирует случайную строку из 32 шестнадцатеричных символов и присваивает (при записи) полученное значение полю auth_key
+     * таблицы user для нового пользователя.
+     * Вызываеться из модели RegForm.
+     */
+    public function generateAuthKey(){
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+    /**
+     * Сравнивает полученный пароль с паролем в поле password_hash, для текущего пользователя, в таблице user.
+     * Вызываеться из модели LoginForm.
+     */
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->password);
     }
 }

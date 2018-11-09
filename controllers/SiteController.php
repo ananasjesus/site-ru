@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Announcement;
+use app\models\RegForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -128,5 +129,28 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionReg()
+    {
+        $model = new RegForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($user = $model->reg()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                } else
+                    return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('error', 'Возникла ошибка при регистрации.');
+                Yii::error('Ошибка при регистрации');
+                return $this->refresh();
+            }
+        }
+        return $this->render(
+            'reg',
+            [
+                'model' => $model
+            ]
+        );
     }
 }
