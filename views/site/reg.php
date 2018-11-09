@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\RegForm */
 /* @var $form ActiveForm */
 ?>
-<div class="main-reg">
+<div class="main-reg col-md-4">
 
     <?php $form = ActiveForm::begin(); ?>
 
