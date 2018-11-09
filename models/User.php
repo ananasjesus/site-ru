@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "user".
@@ -17,7 +18,7 @@ use Yii;
  * @property UserCategory[] $userCategories
  * @property Category[] $category
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -66,5 +67,32 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Category::className(), ['id' => 'category_id'])
             ->viaTable('user_category', ['user_id' => 'id']);
+    }
+
+    /* IdentityInterface implementation */
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    // only useful when session disabled
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['access_token' => $token]);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return $this->getAuthKey() === $authKey;
     }
 }
