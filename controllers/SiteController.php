@@ -133,6 +133,10 @@ class SiteController extends Controller
 
     public function actionReg()
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = new RegForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($user = $model->reg()) {
