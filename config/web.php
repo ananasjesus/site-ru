@@ -82,9 +82,24 @@ $config = [
             [
                 'controllers' => ['site'],
                 'allow' => true,
-                //'roles' => ['?'],
             ],
-
+            [
+                'controllers' => ['announcement'],
+                'allow' => true,
+                'matchCallback' => function($rule, $action){
+                    if ($action->id === 'create') {
+                        return !Yii::$app->user->isGuest;
+                    }
+                    if (in_array($action->id, ['update', 'delete'])) {
+                        if (Yii::$app->user->isGuest)
+                            return false;
+                        $announcementId = Yii::$app->request->params['id'];
+                        return Yii::$app->user->id === \app\models\Announcement::findOne(['id' => $announcementId])->user_id;
+                    }
+                    else
+                        return true;
+                }
+            ],
         ],
     ],
 ];
