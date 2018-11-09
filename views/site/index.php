@@ -22,9 +22,9 @@ $this->title = 'Доска объявлений';
                     <div class="card" style="width: 28rem; border:1px solid #b4b2b3; border-radius: 8px; background-color: #5b92cb">
                         <img class="card-img-top" style="width: 100%; height: 20rem; object-fit: cover; border-radius: inherit;" src="<?= Yii::getAlias('@web/') . $announcement->getImage();?>" alt="">
                         <div class="card-body" style="margin: 1rem;">
-                            <h5 class="card-title"><?= strlen($announcement->title) < 30 ? $announcement->title : mb_substr($announcement->title, 0, 30) . '...' ?></h5>
+                            <h4 class="card-title"><?= strlen($announcement->title) < 30 ? $announcement->title : mb_substr($announcement->title, 0, 30) . '...' ?></h4>
                             <p class="card-text" style="min-height: 5rem;"><?= strlen($announcement->content) < 50 ? $announcement->content : mb_substr($announcement->content, 0, 50) . '...'?></p>
-                            <a href="#" class="btn btn-primary card-text-bottom">Подробнее</a>
+                            <a href="<?= Yii::getAlias('@web/announcement/view?id=') . $announcement->id ?>" class="btn btn-primary card-text-bottom">Подробнее</a>
                         </div>
                     </div>
                 </div>
