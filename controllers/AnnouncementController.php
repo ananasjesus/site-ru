@@ -11,10 +11,15 @@ use yii\web\Controller;
 class AnnouncementController extends Controller
 {
 
-
-
-
     public function actionIndex() {
-        return 'asdfasdf';
+        return 'index';
+    }
+
+    public function actionView($id) {
+        return 'view';
+    }
+
+    public function actionDelete($id) {
+        return 'delete';
     }
 }
