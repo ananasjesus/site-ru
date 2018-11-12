@@ -43,6 +43,7 @@ AppAsset::register($this);
             ['label' => 'Админ', 'url' => ['/admin/default']],
             ['label' => 'Объявления', 'url' => ['/admin/announcement']],
             ['label' => 'Категории', 'url' => ['/admin/category']],
+            ['label' => 'Пользователи', 'url' => ['/admin/user']],
             '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(

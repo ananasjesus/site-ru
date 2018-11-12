@@ -100,6 +100,9 @@ class Announcement extends \yii\db\ActiveRecord
        return ArrayHelper::getColumn($this->getCategory()->select('id')->asArray()->all(), 'id');
    }
 
+    /**
+     * @param int[] $category Массив идентификаторов
+     */
    public function saveCategory($category)
    {
        if (is_array($category)) {

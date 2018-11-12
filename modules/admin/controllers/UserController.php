@@ -2,9 +2,11 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Category;
 use Yii;
 use app\models\User;
 use app\models\UserSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -123,5 +125,24 @@ class UserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionBanCategory($id)
+    {
+        $user = $this->findModel($id);
+        $bannedCategory = $user->getBannedCategory();
+        $category = ArrayHelper::map(Category::find()->all(), 'id', 'title');
+
+        if(Yii::$app->request->isPost)
+        {
+            $category = Yii::$app->request->post('category');
+            $user->banCategory($category);
+            return $this->redirect(['view', 'id' => $id]);
+        }
+
+        return $this->render('category', [
+            'bannedCategory' => $bannedCategory,
+            'category' => $category
+        ]);
     }
 }

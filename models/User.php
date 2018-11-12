@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
 /**
@@ -130,5 +131,30 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password);
+    }
+
+    public function isBanned($id)
+    {
+        return $this->getCategory()->select(['id' => $id])->count() > 0;
+    }
+
+    /**
+     * @param int[] $category Массив идентификаторов
+     */
+    public function banCategory($category)
+    {
+        if (is_array($category)) {
+
+            UserCategory::deleteAll(['user_id' => $this->id]);
+
+            foreach ($category as $id) {
+                $this->link('category', Category::findOne($id));
+            }
+        }
+    }
+
+    public function getBannedCategory()
+    {
+        return ArrayHelper::getColumn($this->getCategory()->select('id')->asArray()->all(), 'id');
     }
 }
