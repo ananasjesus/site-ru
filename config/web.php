@@ -100,6 +100,14 @@ $config = [
                         return true;
                 }
             ],
+            [
+                'allow' => true,
+                'controllers' => ['debug/*']
+            ],
+            [
+                'allow' => true,
+                'controllers' => ['gii/*'],
+            ],
         ],
     ],
 
