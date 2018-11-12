@@ -7,7 +7,7 @@ use yii\data\ActiveDataProvider;
 
 class AnnouncementItem extends CategoryAnnouncement
 {
-    public $id, $title, $content, $viewed, $created, $expired, $user_id, $username;
+    public $id, $title, $content, $viewed, $created, $expired, $user_id, $username, $image;
 
     public static function findByCategory($id)
     {
@@ -16,7 +16,9 @@ class AnnouncementItem extends CategoryAnnouncement
             ->join('LEFT JOIN', 'user', 'announcement.user_id = user.id')
             ->select(['announcement.id AS id', 'announcement.title AS title', 'announcement.content AS content',
                 'announcement.viewed AS viewed', 'announcement.created AS created', 'announcement.expired AS expired',
-                'announcement.user_id AS user_id', 'user.name AS username'])->orderBy('created DESC');
+                'announcement.user_id AS user_id', 'announcement.image AS image', 'user.name AS username'])
+            ->orderBy('created DESC')
+        ->distinct();
 
         if ($id !== null)
             $query = $query->where(['category_announcement.category_id' => $id]);
@@ -31,4 +33,11 @@ class AnnouncementItem extends CategoryAnnouncement
         return $provider;
     }
 
+    public function getImage()
+    {
+        if(is_file($this->image))
+            return $this->image;
+        else
+            return 'no_image.png';
+    }
 }
