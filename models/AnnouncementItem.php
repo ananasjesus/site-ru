@@ -21,7 +21,7 @@ class AnnouncementItem extends Announcement
             ->where("announcement.expired > $now")
             ->distinct();
 
-        if ($id !== null)
+        if ($id != 0)
             $query = $query->andWhere(['category_announcement.category_id' => $id]);
 
         $provider = new ActiveDataProvider([
