@@ -14,11 +14,9 @@ $this->title = $model->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    
+    <?php if(Yii::$app->user->id === $model->user_id): ?>
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Загрузить изображение', ['set-image', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
-        <?= Html::a('Изменить категорию', ['set-category', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -27,27 +25,18 @@ $this->title = $model->title;
             ],
         ]) ?>
     </p>
+    <?php endif; ?>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'title',
-            'content:ntext',
-            'image',
-            'viewed',
-            'user_id',
-            [
-                'label' => 'Category',
-                'value' => function($data) {
-                    $result = ArrayHelper::getColumn($data->getCategory()->select('title')->asArray()->all(), 'title');
-                    return implode(', ', $result);
-
-                }
-            ],
-            'created',
-            'expired',
-        ],
-    ]) ?>
+    <?php
+    $category = ArrayHelper::getColumn($model->getCategory()->select('title')->asArray()->all(), 'title');
+    $category = implode(', ', $category);
+    ?>
+    <?= Html::img(Yii::getAlias('@web/') . $model->getImage(), ['width' => 300])?>
+    <p>
+        <b>Имя: <?= $model->user->name?>, </b> Создано: <?= $model->created?>, Актуально до <?= $model->expired?>, Просмотров: <?= $model->viewed?>
+    </p>
+    <p>
+        <?= $model->content ?>
+    </p>
 
 </div>

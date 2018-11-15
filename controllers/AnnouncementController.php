@@ -28,8 +28,11 @@ class AnnouncementController extends Controller
 
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $model->viewed++;
+        $model->save();
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

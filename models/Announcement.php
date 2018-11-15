@@ -143,6 +143,9 @@ class Announcement extends \yii\db\ActiveRecord
         return $provider;
     }
 
-
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
 
 }
