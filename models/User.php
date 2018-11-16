@@ -133,9 +133,20 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return Yii::$app->security->validatePassword($password, $this->password);
     }
 
-    public function isBanned($id)
+    public function isBanned($categories)
     {
-        return $this->getCategory()->select(['id' => $id])->count() > 0;
+        $banlist = $this->getBannedCategory();
+        if (is_array($categories)) {
+            foreach ($categories as $category) {
+                if (in_array($category, $banlist))
+                    return true;
+            }
+        } else {
+            if (in_array($categories, $banlist))
+                return true;
+        }
+
+        return false;
     }
 
     /**
