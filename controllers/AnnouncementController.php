@@ -20,7 +20,7 @@ class AnnouncementController extends Controller
     public function actionIndex($category = 0) {
         $dataProvider = AnnouncementItem::findByCategory($category);
         $categories = ArrayHelper::map(Category::find()->all(), 'id', 'title');
-        array_unshift($categories, 'Все');
+        $categories[0] = 'Все';
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -105,7 +105,7 @@ class AnnouncementController extends Controller
             if (!Yii::$app->user->identity->isBanned($category))
                 $announcement->saveCategory($category);
             else
-                Yii::$app->session->setFlash('warning', 'Вы не можете создавать объявления в этом разделе');
+                Yii::$app->session->setFlash('error', 'Вы не можете создавать объявления в этом разделе');
 
             return $this->redirect(['view', 'id' => $id]);
         }
