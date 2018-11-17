@@ -90,7 +90,7 @@ $config = [
                     if ($action->id === 'create') {
                         return !Yii::$app->user->isGuest;
                     }
-                    if (in_array($action->id, ['update', 'delete'])) {
+                    if (in_array($action->id, ['update', 'delete', 'set-image', 'set-category'])) {
                         if (Yii::$app->user->isGuest)
                             return false;
                         $announcementId = Yii::$app->request->get('id');

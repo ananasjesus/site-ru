@@ -14,9 +14,11 @@ $this->title = $model->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php if(Yii::$app->user->id === $model->user_id): ?>
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->id === $model->user_id): ?>
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Загрузить изображение', ['set-image', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Изменить категорию', ['set-category', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
