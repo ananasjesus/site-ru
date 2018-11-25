@@ -54,6 +54,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'password' => 'Password',
             'isAdmin' => 'Is Admin',
             'photo' => 'Photo',
+            'status' => 'Status'
         ];
     }
 

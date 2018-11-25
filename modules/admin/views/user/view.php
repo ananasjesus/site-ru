@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'password',
             'isAdmin',
+            'status',
             'photo',
             'auth_key',
             [

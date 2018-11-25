@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'email:email',
-            'password',
+            'status',
             'isAdmin',
             [
                 'label' => 'Banned categories',
