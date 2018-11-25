@@ -88,10 +88,10 @@ $config = [
                 'allow' => true,
                 'matchCallback' => function($rule, $action){
                     if ($action->id === 'create') {
-                        return !Yii::$app->user->isGuest;
+                        return !Yii::$app->user->isGuest && Yii::$app->user->identity->status !== 0;
                     }
                     if (in_array($action->id, ['update', 'delete', 'set-image', 'set-category'])) {
-                        if (Yii::$app->user->isGuest)
+                        if (Yii::$app->user->isGuest || Yii::$app->user->identity->status === 0)
                             return false;
                         $announcementId = Yii::$app->request->get('id');
                         return $announcementId && Yii::$app->user->id === \app\models\Announcement::findOne(['id' => $announcementId])->user_id;
