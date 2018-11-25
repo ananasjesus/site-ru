@@ -15,7 +15,7 @@ class ImageUpload extends Model {
     {
         return [
             ['image', 'required'],
-            ['image', 'file', 'extensions' => 'jpg,jpeg,png,gif']
+            ['image', 'file', 'extensions' => 'jpg,jpeg,png,gif', 'maxSize' => 1024 * 1024 * 5], //5mb
         ];
     }
 
